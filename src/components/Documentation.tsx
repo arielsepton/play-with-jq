@@ -1,49 +1,28 @@
 import React, { useState } from 'react';
-import DocComponent from './DocComponent'; // Adjust the import path based on your project structure
 
-const MyDocumentation: React.FC = () => {
-  const [isDocumentationVisible, setDocumentationVisible] = useState(false);
+  
+interface JQDocsProps {
+    closeModal: () => void;
+  }
 
-  const toggleDocumentation = () => {
-    setDocumentationVisible(!isDocumentationVisible);
-  };
-
+const JQDocs: React.FC<JQDocsProps> = ({ closeModal }) => {
   return (
-    <div className="container mx-auto p-8">
-      <div className="flex justify-end mb-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-          onClick={toggleDocumentation}
-        >
-          {isDocumentationVisible ? 'Hide Docs' : 'Show Docs'}
-        </button>
-        {isDocumentationVisible && (
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => setDocumentationVisible(false)}
-          >
-            Close
-          </button>
-        )}
-      </div>
-
-      {isDocumentationVisible && (
-        <div>
-          <h1 className="text-4xl font-bold mb-8">My Documentation</h1>
-
-          <DocComponent title="Introduction" description="Get started with MyDocumentation.">
-            <p>
-              MyDocumentation is a simple and customizable documentation component for your React
-              applications. It's designed to provide an easy way to create beautiful documentation
-              pages.
-            </p>
-          </DocComponent>
-
-          {/* Add more DocComponent instances for other sections of your documentation */}
+    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 py-10">
+    <div className="max-h-full w-full max-w-xl overflow-y-auto sm:rounded-2xl bg-white">
+      <div className="w-full">
+        <div className="m-8 my-20 max-w-[400px] mx-auto">
+          <div className="mb-8">
+            <h1 className="mb-4 text-3xl font-extrabold">Docs</h1>
+            <p className="text-gray-600">Explanation</p>
+          </div>
+          <div className="space-y-4">
+            <button className="p-3 bg-black rounded-full text-white w-full font-semibold" onClick={closeModal}>Start</button>
+          </div>
         </div>
-      )}
+      </div>
     </div>
+  </div>
   );
 };
 
-export default MyDocumentation;
+export default JQDocs;
