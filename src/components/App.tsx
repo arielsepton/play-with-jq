@@ -1,13 +1,17 @@
 
 import React, { useState } from 'react';
 import JQDocs from './Documentation';
-import JqEditor from './JQ'
+import JQEditor from './JQ'
 
 const App = () => {
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const closeModal = () => {
     setOpenModal(false);
+  };
+
+  const toggle: () => void = () => {
+    setOpenModal(!openModal);
   };
 
   return (
@@ -15,7 +19,7 @@ const App = () => {
     {openModal ? (
       <JQDocs closeModal={closeModal} />
     ) : (
-      <JqEditor />
+      <JQEditor closeModal={toggle} />
     )}
   </div>
     

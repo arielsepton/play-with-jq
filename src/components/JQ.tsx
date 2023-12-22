@@ -1,8 +1,9 @@
 import { runJQ } from '../common/helper';
 import React, { useState, useEffect } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'; 
 import {draculaTheme}  from '../common/utils/DraculaTheme' 
+import * as monacoEditor from 'monaco-editor';
 
 
 monaco.editor.defineTheme('dracula-theme', draculaTheme);
@@ -15,10 +16,14 @@ interface jqProps {
 }
 
 
-const JqEditor = () => {
+interface JQDocsProps {
+  closeModal: () => void;
+}
+
+const JQEditor: React.FC<JQDocsProps> = ({ closeModal }) => {
   const [jqProps, setJqProps] = useState<jqProps>({ jqCode: '', jqFilter: '', jsonCode: '' });
 
-  const [jsonCode, setJsonCode] = useState<string>('Enter JSON data...');
+  const [jsonCode, setJsonCode] = useState<string>('Enter JSON data...\nPress ctrl + enter for help ');
   const [jqCode, setJqCode] = useState<string>('');
   const [jqFilter, setJqFilter] = useState<string>('');
 
@@ -74,6 +79,13 @@ const JqEditor = () => {
     console.log('jqProps changed:', jqProps);
   };
 
+  const editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) => {
+    // editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, (e: monacoEditor.IKeyboardEvent) => {
+    //     onRunJQ();
+    // });
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, closeModal);
+  };
+
   return (
     <div className='flex flex-col w-screen'>
       <div className='h-24 w-screen'>
@@ -94,6 +106,7 @@ const JqEditor = () => {
               language="json"
               theme="dracula-theme"
               value={jsonCode}
+              editorDidMount={editorDidMount}
               options={{ 
                 selectOnLineNumbers: true,
                 automaticLayout: true,
@@ -128,4 +141,4 @@ const JqEditor = () => {
   );
 };
 
-export default JqEditor;
+export default JQEditor;
