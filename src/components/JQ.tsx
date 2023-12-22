@@ -17,13 +17,13 @@ interface jqProps {
 
 
 interface JQDocsProps {
-  closeModal: () => void;
+  toggleModal: () => void;
 }
 
-const JQEditor: React.FC<JQDocsProps> = ({ closeModal }) => {
+const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
   const [jqProps, setJqProps] = useState<jqProps>({ jqCode: '', jqFilter: '', jsonCode: '' });
 
-  const [jsonCode, setJsonCode] = useState<string>('Enter JSON data...\nPress ctrl + enter for help ');
+  const [jsonCode, setJsonCode] = useState<string>('Enter JSON data...\nPress ctrl + enter for help\nPress Alt + t to switch theme');
   const [jqCode, setJqCode] = useState<string>('');
   const [jqFilter, setJqFilter] = useState<string>('');
 
@@ -79,18 +79,25 @@ const JQEditor: React.FC<JQDocsProps> = ({ closeModal }) => {
     console.log('jqProps changed:', jqProps);
   };
 
+
+  const availableThemes = ['vs', 'vs-dark', 'hc-black', 'hc-light', 'dracula-theme'];
+  const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
+
+
   const editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) => {
-    // editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, (e: monacoEditor.IKeyboardEvent) => {
-    //     onRunJQ();
-    // });
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, closeModal);
-  };
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, toggleModal);
+    editor.addCommand(monaco.KeyMod.Alt | monaco.KeyCode.KeyT, () => {
+      setCurrentThemeIndex((prevIndex) => (prevIndex + 1) % availableThemes.length);
+    });  };
+
+    const currentTheme = availableThemes[currentThemeIndex];
+
 
   return (
     <div className='flex flex-col w-screen'>
       <div className='h-24 w-screen'>
       <textarea
-        className="bg-gray-900 text-white p-2 text-base w-full h-full"
+        className={`p-2 text-base w-full h-full bg-${currentTheme} text-${currentTheme}`}
         value={jqFilter}
         onChange={handleJqFilterChange}
         placeholder="Enter JQ filter..."
@@ -104,7 +111,7 @@ const JQEditor: React.FC<JQDocsProps> = ({ closeModal }) => {
               width="100%"
               height="100%"
               language="json"
-              theme="dracula-theme"
+              theme={currentTheme}
               value={jsonCode}
               editorDidMount={editorDidMount}
               options={{ 
@@ -123,7 +130,7 @@ const JQEditor: React.FC<JQDocsProps> = ({ closeModal }) => {
               width="100%"
               height="100%"
               language="plaintext"
-              theme="dracula-theme"
+              theme={currentTheme}
               value={jqCode}
               options={{ 
                 selectOnLineNumbers: true,

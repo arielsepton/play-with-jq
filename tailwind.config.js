@@ -9,9 +9,21 @@ module.exports = {
   ],
   theme: {
     extend: {
-      animation: {
-        loading: 'loading 2s linear infinite',
+      backgroundColor: {
+        'vs': '#ffffff',
+        'vs-dark': '#1e1e1e',
+        'hc-black': '#000000',
+        'hc-light': '#ffffff',
+        'dracula-theme': '#282a36',
       },
+      textColor: {
+        'vs': '#000000',
+        'vs-dark': '#ffffff',
+        'hc-black': '#ffffff',
+        'hc-light': '#000000',
+        'dracula-theme': '#f8f8f2',
+      },
+      // Add more styles as needed...
     },
   },
   plugins: [],

@@ -19,7 +19,7 @@ const App = () => {
     {openModal ? (
       <JQDocs closeModal={closeModal} />
     ) : (
-      <JQEditor closeModal={toggle} />
+      <JQEditor toggleModal={toggle} />
     )}
   </div>
     
