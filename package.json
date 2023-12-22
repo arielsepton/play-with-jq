@@ -1,0 +1,74 @@
+{
+  "name": "compoplane",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.5",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@node-red-contrib-themes/dracula": "^2.2.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.2",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "jq-in-the-browser": "^0.7.2",
+    "jq-web": "^0.5.1",
+    "lodash": "^4.17.21",
+    "monaco-editor": "^0.44.0",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-json-editor-ajrm": "^2.5.14",
+    "react-monaco-editor": "^0.55.0",
+    "stream": "^0.0.2",
+    "styled-components": "^6.0.4",
+    "typescript": "^5.1.6",
+    "web-vitals": "^2.1.4",
+    "yaml": "^2.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": "src/"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/lodash": "^4.14.202",
+    "@types/react-json-editor-ajrm": "^2.5.6",
+    "npm-watch": "^0.11.0",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "^5.0.1",
+    "tailwindcss": "^3.3.3"
+  }
+}
