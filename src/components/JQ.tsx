@@ -99,19 +99,18 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
 
 
   return (
-    <div className='flex flex-col w-screen'>
-      <div className='h-24 w-screen'>
+    <div className='flex flex-col w-screen overflow-hidden h-screen'>
+      <div className='h-24 w-screen flex-none'>
       <textarea
-        className={`p-2 text-base w-full h-full ${currentTheme.bg}`}
+        className={`resize-none p-2 text-base w-full h-full ${currentTheme.bg}`}
         value={jqFilter}
         onChange={handleJqFilterChange}
-        placeholder="Enter JQ filter..."
-        style={{ color: `${currentTheme.text}` }}
-
+        placeholder="Enter JQ filter..." 
+        style={{ color: `${currentTheme.text}`, fontFamily: "'Consolas', 'Courier New', 'monospace'"}}
       />
       </div>
-      <div className="flex-auto">
-        <div className="flex flex-row w-screen h-screen">
+      <div className="grow">
+        <div className="flex flex-row w-screen h-full">
           <div className="flex-1 w-1/2 h-full">
             <div></div>
             <MonacoEditor

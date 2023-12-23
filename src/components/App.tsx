@@ -15,7 +15,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className='overflow-hidden'>
     {openModal ? (
       <JQDocs closeModal={closeModal} />
     ) : (
