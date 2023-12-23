@@ -80,7 +80,12 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
   };
 
 
-  const availableThemes = ['vs', 'vs-dark', 'hc-black', 'hc-light', 'dracula-theme'];
+  const availableThemes = [
+    {'name': 'vs', bg: 'bg-[#ffffff]', text: '#000000'}, 
+    {'name': 'vs-dark', bg: 'bg-[#1e1e1e]', text: '#ffffff'}, 
+    {'name': 'hc-black',  bg: 'bg-[#000000]', text: '#ffffff'}, 
+    {'name': 'hc-light',  bg: 'bg-[#ffffff]', text: '#000000'}, 
+    {'name': 'dracula-theme', bg: 'bg-[#282a36]', text: '#ffffff'}];
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
 
 
@@ -97,10 +102,12 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
     <div className='flex flex-col w-screen'>
       <div className='h-24 w-screen'>
       <textarea
-        className={`p-2 text-base w-full h-full bg-${currentTheme} text-${currentTheme}`}
+        className={`p-2 text-base w-full h-full ${currentTheme.bg}`}
         value={jqFilter}
         onChange={handleJqFilterChange}
         placeholder="Enter JQ filter..."
+        style={{ color: `${currentTheme.text}` }}
+
       />
       </div>
       <div className="flex-auto">
@@ -111,7 +118,7 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
               width="100%"
               height="100%"
               language="json"
-              theme={currentTheme}
+              theme={currentTheme.name}
               value={jsonCode}
               editorDidMount={editorDidMount}
               options={{ 
@@ -130,7 +137,7 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
               width="100%"
               height="100%"
               language="plaintext"
-              theme={currentTheme}
+              theme={currentTheme.name}
               value={jqCode}
               options={{ 
                 selectOnLineNumbers: true,
