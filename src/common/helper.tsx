@@ -1,15 +1,21 @@
-import jq from 'jq-in-the-browser';
-
 export interface MyJson {
   [key: string]: any;
 }
 
-export function runJQ(jqFilter: string, jsonInput: string): any {
+export async function runJQ(jqFilter: string, jsonInput: string): Promise<string> {
   const filter = cleanFilter(jqFilter)
-  const query = jq(filter);
-  const jsonData: MyJson = JSON.parse(jsonInput);
+  
+  const data: MyJson = JSON.parse(jsonInput);
+  const response = await fetch('/jq', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({data, filter})
+  });
 
-  return query(jsonData);
+  return JSON.stringify(await(response).json())
 }
 
 function cleanFilter(text: string): string {

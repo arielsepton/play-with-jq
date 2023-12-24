@@ -1,19 +1,11 @@
 import { runJQ } from '../common/helper';
 import React, { useState, useEffect } from 'react';
-import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor';
+import MonacoEditor from 'react-monaco-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'; 
 import {draculaTheme}  from '../common/utils/DraculaTheme' 
 import * as monacoEditor from 'monaco-editor';
 
-
 monaco.editor.defineTheme('dracula-theme', draculaTheme);
-
-
-interface jqProps {
-  jsonCode: string;
-  jqFilter: string;
-  jqCode: string;
-}
 
 
 interface JQDocsProps {
@@ -21,26 +13,19 @@ interface JQDocsProps {
 }
 
 const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
-  const [jqProps, setJqProps] = useState<jqProps>({ jqCode: '', jqFilter: '', jsonCode: '' });
 
-  const [jsonCode, setJsonCode] = useState<string>('Enter JSON data...\nPress ctrl + enter for help\nPress Alt + t to switch theme');
+  const [jsonCode, setJsonCode] = useState<string>(`
+{
+  "help": "Press ctrl + enter",
+  "switch_theme": "Press Alt + t" 
+}
+  `);
   const [jqCode, setJqCode] = useState<string>('');
-  const [jqFilter, setJqFilter] = useState<string>('');
-
-  useEffect(() => {
-    setJqProps({ jsonCode, jqFilter, jqCode });
-  }, [jsonCode, jqFilter, jqCode]);
-
+  const [jqFilter, setJqFilter] = useState<string>('.help');
 
   const handleJsonChange = (newValue: string) => {
     try {
       setJsonCode(newValue);
-      setJqProps({
-        jqCode: jqCode,
-        jqFilter: jqFilter,
-        jsonCode: newValue
-      })
-
     } catch (error) {
       console.error('Error parsing JSON:', error);
     }
@@ -49,43 +34,34 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
   const handleJqFilterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     try {
       setJqFilter(event.target.value);
-      setJqProps({
-        jqCode: jqCode,
-        jqFilter: jqFilter,
-        jsonCode: jsonCode
-      })
 
     } catch (error) {
       console.error('Error with filter:', error);
     }
   };
 
-  useEffect(() => {
-    runJQQuery();
-  }, [jqProps]);
-
   const runJQQuery = () => {
-    if (jqProps.jqFilter && jqProps.jqFilter.trim() !== '.') {
-      try {
-        const result = runJQ(jqProps.jqFilter, jqProps.jsonCode);
-        setJqCode(result);
-      } catch (err) {
-        setJqCode(err.message);
-      }
-    } else {
-      setJqCode(''); 
-    }
-  
-    console.log('jqProps changed:', jqProps);
-  };
+    console.log('jqProps changed:', {
+      jqCode: jqCode,
+      jqFilter: jqFilter,
+      jsonCode: jsonCode
+    });
 
+    runJQ(jqFilter, jsonCode).then((result) => {
+      console.log("result: " + result);
+      setJqCode(result);
+    });
+  };
+  
+  useEffect(runJQQuery, [jqCode, jqFilter, jsonCode]);
 
   const availableThemes = [
+    {'name': 'dracula-theme', bg: 'bg-[#282a36]', text: '#ffffff'},
     {'name': 'vs', bg: 'bg-[#ffffff]', text: '#000000'}, 
     {'name': 'vs-dark', bg: 'bg-[#1e1e1e]', text: '#ffffff'}, 
     {'name': 'hc-black',  bg: 'bg-[#000000]', text: '#ffffff'}, 
-    {'name': 'hc-light',  bg: 'bg-[#ffffff]', text: '#000000'}, 
-    {'name': 'dracula-theme', bg: 'bg-[#282a36]', text: '#ffffff'}];
+    {'name': 'hc-light',  bg: 'bg-[#ffffff]', text: '#000000'}
+  ];
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
 
 
@@ -99,7 +75,7 @@ const JQEditor: React.FC<JQDocsProps> = ({ toggleModal }) => {
 
 
   return (
-    <div className='flex flex-col w-screen overflow-hidden h-screen'>
+    <div className='flex flex-col w-screen h-screen'>
       <div className='h-24 w-screen flex-none'>
       <textarea
         className={`resize-none p-2 text-base w-full h-full ${currentTheme.bg}`}
