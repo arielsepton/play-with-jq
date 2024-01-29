@@ -1,6 +1,6 @@
-FROM node:18
+FROM node:18-alpine
 
-RUN apt-get install -y bash autoconf make libtool automake gcc g++ python3
+RUN apk add bash autoconf make libtool automake gcc g++ python3
 
 # Update npm to the latest version
 RUN npm install -g npm@latest

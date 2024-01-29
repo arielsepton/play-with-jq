@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import JQDocs from './Documentation';
-import JQEditor from './JQ'
+import JQEditor from './JQ';
 
 const App = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -15,14 +14,13 @@ const App = () => {
   };
 
   return (
-    <div className='overflow-hidden'>
-    {openModal ? (
-      <JQDocs closeModal={closeModal} />
-    ) : (
-      <JQEditor toggleModal={toggle} />
-    )}
-  </div>
-    
+    <div className="overflow-hidden">
+      {openModal ? (
+        <JQDocs closeModal={closeModal} />
+      ) : (
+        <JQEditor toggleModal={toggle} />
+      )}
+    </div>
   );
 };
 

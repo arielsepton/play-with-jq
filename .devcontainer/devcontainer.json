@@ -13,7 +13,10 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "apt-get install bash autoconf make libtool automake gcc g++ python3",
-
+	"runArgs": [
+        "--env-file",
+        ".devcontainer/.env"
+    ],
 	// Configure tool-specific properties.
 	// "customizations": {},
 
