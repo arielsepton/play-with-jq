@@ -22,8 +22,10 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cors": "^2.8.5",
+    "customize-cra": "^1.0.0",
     "express": "^4.18.2",
     "monaco-editor": "^0.44.0",
+    "monaco-editor-webpack-plugin": "^7.1.0",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -41,10 +43,10 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "frontdev": "react-scripts start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "frontdev": "react-app-rewired start",
     "watch": "npm-watch",
     "prettier": "prettier --check '**/**/*.{js,jsx,ts,tsx,css}'",
     "prettier:fix": "prettier --write '**/**/*.{js,jsx,ts,tsx,css}'"
@@ -76,6 +78,7 @@
     "lucide-react": "^0.316.0",
     "npm-watch": "^0.11.0",
     "prettier": "^3.2.4",
+    "react-app-rewired": "^2.2.1",
     "react-router-dom": "^6.15.0",
     "react-scripts": "^5.0.1",
     "tailwindcss": "^3.3.3"

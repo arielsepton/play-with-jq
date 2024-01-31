@@ -1,3 +1,5 @@
+import useFetch from './useFetch';
+
 export interface MyJson {
   [key: string]: any;
 }
@@ -7,7 +9,8 @@ export async function runJQ(jqFilter: string, data: object): Promise<string> {
     console.log('hiii');
     const filter = cleanFilter(jqFilter);
 
-    const response = await fetch('http://localhost:5000/jq', {
+    // useFetch('http://localhost:5002/jq', 'POST', [], JSON.stringify({ data, filter }))
+    const response = await fetch('http://localhost:5002/jq', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
